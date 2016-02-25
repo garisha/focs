@@ -110,10 +110,9 @@ int main(int argc, char *argv[]){
 	
 	fp = fopen(argv[1],"r");
 	fscanf(fp, "%d\t%d\n", &vtx, &adj);
-	sprintf(string, "^%d\t%d$", adj, vtx);
+	sprintf(syscmd, "grep -Pw '%d\\t%d' %s| wc -l ", adj, vtx, argv[1]);
 	fclose(fp);
 	
-	sprintf(syscmd, "grep -e '%s' %s| wc -l ", string, argv[1]);
 	p = popen(syscmd, "r");
 	fscanf(p,"%d", &directed);
 	pclose(p);
